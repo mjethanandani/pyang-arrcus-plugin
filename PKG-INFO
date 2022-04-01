@@ -1,0 +1,21 @@
+Metadata-Version: 1.1
+Name: pyang-arrcus-plugin
+Version: 0.3
+Summary: A pyang plugin to validate Arrcus native models
+Home-page: https://github.com/mjethanandani/pyang-arrcus-plugin
+Author: Mahesh Jethanandani
+Author-email: mjethanandani@gmail.com
+License: New-style BSD
+Download-URL: https://github.com/mjethanandani/pyang-arrcus-plugin/archive/0.1.tar.gz
+Description: # A pyang plugin to validate Arrcus native YANG models.
+        
+        This pyang plugin validates Arrcus device specific YANG modules per the naming conventions established within Arrcus.
+        
+        
+        
+        ```
+        $ pyang --arrcus arcos-te.yang
+        ```
+        
+Keywords: yang,validation
+Platform: UNKNOWN

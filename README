@@ -1,0 +1,9 @@
+# A pyang plugin to validate Arrcus native YANG models.
+
+This pyang plugin validates Arrcus device specific YANG modules per the naming conventions established within Arrcus.
+
+
+
+```
+$ pyang --arrcus arcos-te.yang
+```
