@@ -6,7 +6,7 @@ def read(fname):
 
 setup(
     name='pyang-arrcus-plugin',
-    version='0.1',
+    version='0.2',
     description=('A pyang plugin to validate Arrcus native models'),
     long_description=read('README.md'),
     packages=['plugins'],
@@ -14,8 +14,8 @@ setup(
     author_email='mjethanandani@gmail.com',
     license='New-style BSD',
     url='https://github.com/mjethanandani/pyang-arrcus-plugin',
-    download_url='https://github.com/mjethanandani/pyang-arrcus-plugin/archive/0.1.tar.gz',
-    install_requires=['pyang>=1.7.1'],
+    download_url='https://github.com/mjethanandani/pyang-arrcus-plugin/archive/0.2.tar.gz',
+    install_requires=['pyang>=2.5.0'],
     include_package_data=True,
     keywords=['yang', 'validation'],
     classifiers=[],

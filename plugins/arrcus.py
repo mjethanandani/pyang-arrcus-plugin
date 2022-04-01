@@ -9,6 +9,7 @@ from pyang import statements
 from pyang import error
 from pyang.error import err_add
 from pyang.plugins import lint
+from pyang import grammar
 
 def pyang_plugin_init():
     plugin.register_plugin(ArrcusPlugin())
@@ -46,11 +47,18 @@ class ArrcusPlugin(lint.LintPlugin):
             'grammar', ['$chk_required'],
             lambda ctx, s: lint.v_chk_required_substmt(ctx, s))
 
+        statements.add_validation_fun(
+            'grammar', ['*'],
+            lambda ctx, s: v_chk_hyphenated_names(ctx, s))
+
         # register our error codes
         error.add_error_code(
             'LINT_MISSING_REQUIRED_SUBSTMT', 3,
             '%s: '
             + 'statement "%s" must have a "%s" substatement')
+        error.add_error_code(
+            'LINT_NOT_HYPHENATED', 4,
+            '%s is not hyphenated, e.g., using underscore')
 
 _required_substatements = {
     'module': (('contact', 'organization', 'description', 'revision'),
@@ -73,3 +81,17 @@ _required_substatements = {
     'choice':(('description',), "RFC 8407: 4.14"),
     'anyxml':(('description',), "RFC 8407: 4.14"),
     }
+
+def v_chk_hyphenated_names(ctx, stmt):
+    if stmt.keyword in grammar.stmt_map:
+        (arg_type, subspec) = grammar.stmt_map[stmt.keyword]
+        if ((arg_type == 'identifier') and
+            not_hyphenated(stmt.arg)):
+            error.err_add(ctx.errors, stmt.pos, 'LINT_NOT_HYPHENATED', stmt.arg)
+
+def not_hyphenated(name):
+    ''' Returns True if name is not hyphenated '''
+    if name == None:
+        return False
+    # Check for upper-case and underscore
+    return ("_" in name)
