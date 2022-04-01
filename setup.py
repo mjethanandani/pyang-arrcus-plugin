@@ -8,7 +8,7 @@ setup(
     name='pyang-arrcus-plugin',
     version='0.1',
     description=('A pyang plugin to validate Arrcus native models'),
-    long_description=read('README'),
+    long_description=read('README.md'),
     packages=['plugins'],
     author='Mahesh Jethanandani',
     author_email='mjethanandani@gmail.com',
