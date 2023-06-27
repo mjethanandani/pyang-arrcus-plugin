@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: pyang-arrcus-plugin
-Version: 0.3
+Version: 0.6
 Summary: A pyang plugin to validate Arrcus native models
 Home-page: https://github.com/mjethanandani/pyang-arrcus-plugin
 Author: Mahesh Jethanandani
