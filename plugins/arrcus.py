@@ -57,7 +57,6 @@ _required_substatements = {
                "RFC 8407: 4.8"),
     'submodule': (('contact', 'organization', 'description', 'revision'),
                   "RFC 8407: 4.8"),
-    'revision':(('reference',), "RFC 8407: 4.8"),
     'extension':(('description',), "RFC 8407: 4.14"),
     'feature':(('description',), "RFC 8407: 4.14"),
     'identity':(('description',), "RFC 8407: 4.14"),
