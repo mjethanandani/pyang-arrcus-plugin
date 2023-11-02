@@ -6,7 +6,7 @@ def read(fname):
 
 setup(
     name='pyang-arrcus-plugin',
-    version='0.5',
+    version='0.6',
     description=('A pyang plugin to validate Arrcus native models'),
     long_description=read('README.md'),
     packages=['plugins'],
