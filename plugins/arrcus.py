@@ -96,7 +96,7 @@ _required_substatements = {
     }
 
 copyright_str = \
-r"""Copyright \(c\) (20\d{2})-(20\d{2}) by Arrcus\, Inc\.
+r"""Copyright \(c\) (20\d{2})(?:-(20\d{2}))? by Arrcus\, Inc\.
     All rights reserved\."""
 
 re_copyright = re.compile(re.sub(r'\s+', ' ', copyright_str))
