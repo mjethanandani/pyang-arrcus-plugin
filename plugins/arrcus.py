@@ -19,7 +19,6 @@ class ArrcusPlugin(lint.LintPlugin):
         lint.LintPlugin.__init__(self)
         self.namespace_prefixes = ['http://yang.arrcus.com/arcos/']
         self.modulename_prefixes = ['arcos-']
-        self.mmap = {}
 
     def add_opts(self, optparser):
         optlist = [
@@ -32,8 +31,6 @@ class ArrcusPlugin(lint.LintPlugin):
         optparser.add_options(optlist)
 
     def v_chk_description(self, ctx, s):
-        # if s.i_module.arg not in self.mmap:
-        #    return
         arg = re.sub(r'\s+', ' ', s.arg)
         if s.parent.keyword == 'module' or s.parent.keyword == 'submodule':
             if s.parent.arg.startswith('arcos-'):
@@ -41,10 +38,6 @@ class ArrcusPlugin(lint.LintPlugin):
                 if m is None:
                     err_add(ctx.errors, s.pos, 
                             'ARRCUS_MISSING_COPYRIGHT_STATEMENT', ())
-                else:
-                    # Check that the year is up-to-date w.r.t the 
-                    # last revision statement.
-                    y = int(m.group(1))
 
     def setup_ctx(self, ctx):
         if not ctx.opts.arrcus:
@@ -75,8 +68,9 @@ class ArrcusPlugin(lint.LintPlugin):
         
         error.add_error_code(
             'ARRCUS_MISSING_COPYRIGHT_STATEMENT', 3,
-            'the module must have a Copyright statement, '
-            + 'something like '
+            'the module must have a Copyright statement '
+            + 'inside of the description statement, '
+            + 'something like - '
             + 'Copyright (c) 2016-2022 by Arrcus, Inc. '
             + 'All rights reserved.')
 
