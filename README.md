@@ -12,3 +12,12 @@ arcos-aft-types.yang:1: error: RFC 8407: 4.8: statement "module" must have a "de
 arcos-aft-types.yang:1: error: RFC 8407: 4.8: statement "module" must have a "revision" substatement
 arcos-aft-types.yang:6: error: RFC 8407: 4.13,4.14: statement "typedef" must have a "description" substatement
 ```
+
+To build this package use the command:
+
+`$ python setup.py sdist bdist_wheel`
+
+To install the package locally:
+
+`$ pip install .`
+

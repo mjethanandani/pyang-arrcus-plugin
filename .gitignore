@@ -1,0 +1,9 @@
+# Temp files of emacs
+*~
+# Files left by Mac OS??
+.DS_Store
+#Build files
+dist
+build
+plugins/*
+pyang_arrcus_plugin.egg-info/

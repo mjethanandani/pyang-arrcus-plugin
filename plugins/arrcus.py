@@ -9,6 +9,7 @@ from pyang import statements
 from pyang import error
 from pyang.error import err_add
 from pyang.plugins import lint
+import re
 
 def pyang_plugin_init():
     plugin.register_plugin(ArrcusPlugin())
@@ -29,6 +30,15 @@ class ArrcusPlugin(lint.LintPlugin):
             ]
         optparser.add_options(optlist)
 
+    def v_chk_description(self, ctx, s):
+        arg = re.sub(r'\s+', ' ', s.arg)
+        if s.parent.keyword == 'module' or s.parent.keyword == 'submodule':
+            if s.parent.arg.startswith('arcos-'):
+                m = re_copyright.search(arg)
+                if m is None:
+                    err_add(ctx.errors, s.pos, 
+                            'ARRCUS_MISSING_COPYRIGHT_STATEMENT', ())
+
     def setup_ctx(self, ctx):
         if not ctx.opts.arrcus:
             return
@@ -45,12 +55,24 @@ class ArrcusPlugin(lint.LintPlugin):
         statements.add_validation_fun(
             'grammar', ['$chk_required'],
             lambda ctx, s: lint.v_chk_required_substmt(ctx, s))
+        
+        statements.add_validation_fun(
+            'grammar', ['description'],
+            lambda ctx, s: self.v_chk_description(ctx, s))
 
         # register our error codes
         error.add_error_code(
             'LINT_MISSING_REQUIRED_SUBSTMT', 3,
             '%s: '
             + 'statement "%s" must have a "%s" substatement')
+        
+        error.add_error_code(
+            'ARRCUS_MISSING_COPYRIGHT_STATEMENT', 3,
+            'the module must have a Copyright statement '
+            + 'inside of the description statement, '
+            + 'something like - '
+            + 'Copyright (c) 2016-2022 by Arrcus, Inc. '
+            + 'All rights reserved.')
 
 _required_substatements = {
     'module': (('contact', 'organization', 'description', 'revision'),
@@ -72,3 +94,9 @@ _required_substatements = {
     'choice':(('description',), "RFC 8407: 4.14"),
     'anyxml':(('description',), "RFC 8407: 4.14"),
     }
+
+copyright_str = \
+r"""Copyright \(c\) (20\d{2})(?:-(20\d{2}))? by Arrcus\, Inc\.
+    All rights reserved\."""
+
+re_copyright = re.compile(re.sub(r'\s+', ' ', copyright_str))
